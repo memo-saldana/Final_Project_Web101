@@ -1,22 +1,131 @@
 .App {
-  text-align: center;
+  background-color: #000000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.leftPanel {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 20%;
+  border-right-style: solid;
+  border-right-color: #424242;
+  border-width: 1px;
 }
 
-.App-link {
-  color: #09d3ac;
+.categoryButton {
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 1.22rem;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0.3%;
+  padding-right: 0.3%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  line-height: normal;
+  border-radius: 45px;
+  margin-bottom: 5px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.categoryButton:hover {
+  background-color: #080700;
+  color: #ffd000;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.categoryButton:active {
+  background-color: #131000;
+  color: #ffd000;
+}
+
+#selectedCategory {
+  color: #ffd000;
+}
+
+#addCategory {
+  background-color: #ffd000;
+  margin-top: 25%;
+}
+
+#addCategory:hover {
+  background-color: #ffd622;
+  color: #ffffff;
+}
+
+
+#addCategory:active {
+  background-color: #fdd629;
+  color: #ffffff;
+}
+
+.addCategoryForm[type="text"], textarea{
+  color: #ffffff;
+  background-color: #131000;
+  border: 0px;
+  margin-left: 5%;
+  margin-right: 10px;
+  height: 30px;
+  padding-left: 3%;
+}
+
+.addFormTitle {
+  color: #ffffff;
+  margin-top: 10%;
+  margin-left: 5%;
+  font-weight: bold;
+}
+
+.add {
+  color: #ffffff;
+  font-weight: boldS;
+  border-radius: 50%;
+  background-color: #ffd000;
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto;
+  height: 25px;
+  width: 25px;
+  line-height: 22px;
+  font-size: 1.12em;
+}
+
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.noteTitle {
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: #424242;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  margin-bottom: 0.3%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 3%;
+  color: #ffffff;
+  font-size: 1.5rem;
+  border-radius: 2px;
+}
+
+.noteTitle:hover {
+  background-color: #424242;
 }
