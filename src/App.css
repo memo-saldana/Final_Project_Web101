@@ -1,3 +1,9 @@
+:root {
+  --base-yellow: #ffd000;
+  --hover-yellow: #ffd726;
+  --active-yellow: #fdda3c;
+}
+
 .App {
   background-color: #000000;
   position: fixed;
@@ -41,7 +47,7 @@
 
 .categoryButton:hover {
   background-color: #080700;
-  color: #ffd000;
+  color: var(--base-yellow);
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
@@ -51,51 +57,63 @@
 
 .categoryButton:active {
   background-color: #131000;
-  color: #ffd000;
+  color: var(--base-yellow)
 }
 
 #selectedCategory {
-  color: #ffd000;
+  color: var(--base-yellow);
 }
 
 #addCategory {
-  background-color: #ffd000;
+  background-color: var(--base-yellow);
   margin-top: 25%;
 }
 
 #addCategory:hover {
-  background-color: #ffd622;
+  background-color: var(--hover-yellow);
   color: #ffffff;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 
 #addCategory:active {
-  background-color: #fdd629;
+  background-color: var(--active-yellow);
   color: #ffffff;
+}
+
+.formContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+
+.formContainer > div {
+  width: 100%;
 }
 
 .addCategoryForm[type="text"], textarea{
   color: #ffffff;
   background-color: #131000;
   border: 0px;
-  margin-left: 5%;
-  margin-right: 10px;
+  margin-right: 15px;
   height: 30px;
-  padding-left: 3%;
 }
 
 .addFormTitle {
   color: #ffffff;
   margin-top: 10%;
-  margin-left: 5%;
   font-weight: bold;
 }
 
-.add {
+.addCategoryButton {
   color: #ffffff;
-  font-weight: boldS;
+  font-weight: bold;
   border-radius: 50%;
-  background-color: #ffd000;
+  background-color: var(--base-yellow);
   text-align: center;
   display: inline-block;
   margin: 0 auto;
@@ -103,6 +121,18 @@
   width: 25px;
   line-height: 22px;
   font-size: 1.12em;
+}
+.addCategoryButton:hover {
+  background-color: var(--hover-yellow);
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.addCategoryButton {
+  background-color: var(--active-yellow);
 }
 
 .rightPanel {
@@ -128,4 +158,38 @@
 
 .noteTitle:hover {
   background-color: #424242;
+}
+
+
+.addNoteButton {
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: var(--base-yellow);
+  text-align: center;
+  display: inline-block;
+  margin: 0 auto;
+  height: 70px;
+  width: 70px;
+  line-height: 65px;
+  font-size: 3em;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.addNoteButton:hover {
+  background-color: var(--hover-yellow);
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.addNoteButton:active {
+  background-color: var(--active-yellow);
+  color: #ffffff;
 }

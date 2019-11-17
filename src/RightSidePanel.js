@@ -1,21 +1,18 @@
-import React from 'react';
-import './App.css';
+import Button from './Button';
 import NoteTitle from './NoteTitle';
+import React from 'react';
 
-class RightPanel extends React.Component {
-  render() {
-
-    return (
-      <div className="rightPanel">
-        {this.props.contents.map(content => (
-          <NoteTitle 
-            key={content.title}
-            title={content.title}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const RightPanel = (props) => (
+  <div className="rightPanel">
+    {props.contents.map(content => (
+      <NoteTitle
+        key={content.title}
+        title={content.title}
+      />
+    ))}
+    
+    <Button className="addNoteButton" name="+"/>
+  </div>
+);
 
 export default RightPanel;

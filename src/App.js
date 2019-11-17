@@ -22,9 +22,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // fetch here
+    let info = data.filter(obj => obj.userName === 'Emilio')[0];
+    
     this.setState({
-      info: data,
-      selectedCategory: data.categories[0],
+      info,
+      selectedCategory: info.categories[0],
       isFetching: false,
       hiddenForm: true
     });
@@ -51,32 +54,39 @@ class App extends React.Component {
   }
 
   _addCategory(categoryName) {
-    const newCategory = {
-      "name": categoryName,
-      "contents": []
+    let currCategories = this.state.info.categories;
+    let exists = currCategories.some(cat => cat.name === categoryName);
+    
+    if(categoryName !== "" && !exists){
+      const newCategory = {
+        "name": categoryName,
+        "contents": []
+      }
+  
+      const categorySet = [...this.state.info.categories, newCategory];
+      const newInfo = this.state.info;
+      newInfo.categories = categorySet;
+  
+      this.setState({ info: newInfo });
     }
 
-    const categorySet = [...this.state.info.categories, newCategory];
-    const newInfo = this.state.info;
-    newInfo.categories = categorySet;
-
-    this.setState({
-      info: newInfo,
-      hiddenForm: true
-    })
+    this.setState({ hiddenForm: true });
   }
 
   render() {
     return (
-      <div>
+      <div className="App">
         {this.state.isFetching ? 
-          <Loader
-            type="Puff"
-            color="#ffd000"
-            height={100}
-            width={100}
-            timeout={3000}
-          /> :
+          <div className="App">
+            <Loader
+              type="Puff"
+              color="#ffd000"
+              height={100}
+              width={100}
+              timeout={3000}
+            />
+          </div> 
+          :
           <div className="App"> 
             <LeftPanel
               addCategoryHandler={this._addCategory}

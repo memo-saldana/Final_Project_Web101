@@ -1,6 +1,5 @@
 import React from 'react';
-import './App.css';
-import CategoryButton from './CategoryButton'
+import Button from './Button'
 
 class AddCategoryForm extends React.Component {
   constructor(props) {
@@ -30,7 +29,7 @@ class AddCategoryForm extends React.Component {
 
   render() {
     return (
-    <div>
+    <div className="formContainer">
       {this.props.hidden ? null : 
         <div>
           <p className="addFormTitle">Add Category:</p>
@@ -40,7 +39,11 @@ class AddCategoryForm extends React.Component {
             type="text"
             value={this.state.newCategoryName}
           />
-          <CategoryButton name="+" className="add" handler={this._addCategory}/>
+          <Button 
+            className="addCategoryButton"
+            name="+"
+            handler={this._addCategory}
+          />
         </div>
       }
     </div>
