@@ -26,27 +26,26 @@ class AddCategoryForm extends React.Component {
     this.props.addCategoryHandler(this.state.newCategoryName);
   }
 
-
   render() {
     return (
-    <div className="formContainer">
-      {this.props.hidden ? null : 
-        <div>
-          <p className="addFormTitle">Add Category:</p>
-          <input
-            className="addCategoryForm"
-            onChange={this._handleChage}
-            type="text"
-            value={this.state.newCategoryName}
-          />
-          <Button 
-            className="addCategoryButton"
-            name="+"
-            handler={this._addCategory}
-          />
-        </div>
-      }
-    </div>
+      <div className="formContainer">
+        {!this.props.show ? null : 
+          <div>
+            <p className="addFormTitle">Add Category:</p>
+            <input
+              className="addCategoryForm"
+              onChange={this._handleChage}
+              type="text"
+              value={this.state.newCategoryName}
+            />
+            <Button 
+              className="addCategoryButton"
+              name="+"
+              handler={this._addCategory}
+            />
+          </div>
+        }
+      </div>
     );
   }
 }

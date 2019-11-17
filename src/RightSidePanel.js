@@ -11,7 +11,11 @@ const RightPanel = (props) => (
       />
     ))}
     
-    <Button className="addNoteButton" name="+"/>
+    <Button
+      className="addNoteButton"
+      handler={props.showModalHandler}
+      name="+"
+    />
   </div>
 );
 

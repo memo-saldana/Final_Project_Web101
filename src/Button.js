@@ -10,4 +10,5 @@ const Button = (props) => (
     {props.name}
   </span>
 );
+
 export default Button;

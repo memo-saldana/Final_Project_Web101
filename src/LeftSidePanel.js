@@ -7,19 +7,19 @@ const LeftPanel = (props) => (
     {props.categories.map(category => (
       <Button
         className="categoryButton"
-        handler={props.handler}
+        handler={props.selectCatHandler}
         key={category.name}
         name={category.name}
         id={category.name === props.selectedCategory ? "selectedCategory" : ""}
       />
     ))}
-    <AddCategoryForm hidden={props.hidden} addCategoryHandler={props.addCategoryHandler}/>
+    <AddCategoryForm show={props.isFormShown} addCategoryHandler={props.addCategoryHandler}/>
     <Button
-      id="addCategory"
       className="categoryButton"
+      handler={props.hideForm}
+      id="addCategory"
       name="Add Category"
-      handler={props.hideHandler}
-  />
+    />
   </div>
 );
 

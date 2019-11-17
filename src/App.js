@@ -1,61 +1,66 @@
 import './App.css';
 import data from './dummy';
-import LeftPanel from './LeftSidePanel';
 import Loader from 'react-loader-spinner';
+import MainPage from './MainPage'
+import Modal from 'react-modal';
 import React from 'react';
-import RightPanel from './RightSidePanel';
+import TextEditor from './TextEditor';
 
+Modal.setAppElement('#root');
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      info: {},
       isFetching: true,
-      selectedCategory: [],
-      info: {}
+      isFormShown: false,
+      selectedCategory: {},
+      showModal: false
     };
 
     this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
     this._showAddCategoryForm = this._showAddCategoryForm.bind(this);
     this._addCategory = this._addCategory.bind(this);
+    this._addNotes = this._addNotes.bind(this);
+    this._handleCloseModal = this._handleCloseModal.bind(this);
+    this._handleOpenModal = this._handleOpenModal.bind(this);
   }
 
   componentDidMount() {
     // fetch here
-    let info = data.filter(obj => obj.userName === 'Emilio')[0];
+    let info = data.find(obj => obj.userName === 'Emilio');
     
     this.setState({
       info,
       selectedCategory: info.categories[0],
-      isFetching: false,
-      hiddenForm: true
+      isFetching: false
     });
   }
-
 
   _changeSelectedCategory(e) {
     const categoryName = e.target.getAttribute('name');
 
-    let newCategory = this.state.info.categories;
-    newCategory = newCategory.filter(obj => obj.name === categoryName)[0];
+    let { categories } = this.state.info;
+    categories = categories.filter(obj => obj.name === categoryName)[0];
 
     this.setState({
-      selectedCategory: newCategory
+      selectedCategory: categories
     });
   }
 
   _showAddCategoryForm() {
     this.setState(prevState => {
       return {
-        hiddenForm: !prevState.hiddenForm
+        isFormShown: !prevState.isFormShown
       }
     })
   }
 
   _addCategory(categoryName) {
-    let currCategories = this.state.info.categories;
-    let exists = currCategories.some(cat => cat.name === categoryName);
+    let { categories } = this.state.info;
+    let exists = categories.some(cat => cat.name === categoryName);
     
     if(categoryName !== "" && !exists){
       const newCategory = {
@@ -64,39 +69,81 @@ class App extends React.Component {
       }
   
       const categorySet = [...this.state.info.categories, newCategory];
-      const newInfo = this.state.info;
-      newInfo.categories = categorySet;
+      const  { info } = this.state;
+      info.categories = categorySet;
   
-      this.setState({ info: newInfo });
+      this.setState({ info });
     }
 
-    this.setState({ hiddenForm: true });
+    this.setState({ isFormShown: false });
+  }
+
+  _addNotes(title, notes) {
+    var {info, selectedCategory} = this.state
+
+    const exists = selectedCategory.contents.some(note => note.title === title);
+    
+    if(! exists) {
+      const newNote = {
+        "title": title,
+        "notes": notes 
+      };
+  
+      var {contents} = selectedCategory;
+      contents = [...contents, newNote];
+  
+      var updatedCat = info.categories.filter(cat => cat.name === selectedCategory.name)[0];
+      updatedCat.contents = contents
+  
+      this.setState({
+        info,
+        showModal: false
+      });
+    } else {
+      alert(`The title ${title} already exists`);
+    }
+  }
+
+  _handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+
+  _handleOpenModal() {
+    this.setState({ showModal: true });
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
         {this.state.isFetching ? 
-          <div className="App">
+          <div className="loaderContainer">
             <Loader
               type="Puff"
               color="#ffd000"
-              height={100}
-              width={100}
+              height={200}
+              width={200}
               timeout={3000}
             />
-          </div> 
-          :
-          <div className="App"> 
-            <LeftPanel
+          </div> :
+          <div>
+            <MainPage
               addCategoryHandler={this._addCategory}
               categories={this.state.info.categories}
-              handler={this._changeSelectedCategory}
-              hidden={this.state.hiddenForm}
-              hideHandler={this._showAddCategoryForm}
+              selectCatHandler={this._changeSelectedCategory}
+              isFormShown={this.state.isFormShown}
+              hideForm={this._showAddCategoryForm}
               selectedCategory={this.state.selectedCategory.name}
+              contents={this.state.selectedCategory.contents}
+              showModalHandler={this._handleOpenModal}
             />
-            <RightPanel contents={this.state.selectedCategory.contents}/>
+            <Modal 
+              ariaHideApp={true}
+              isOpen={this.state.showModal}
+              className="Modal"
+              overlayClassName="Overlay"
+            >
+              <TextEditor cancelHandler={this._handleCloseModal} saveHandler={this._addNotes}/>
+            </Modal>
           </div>
         }
       </div>

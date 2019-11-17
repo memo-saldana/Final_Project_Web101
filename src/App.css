@@ -11,10 +11,18 @@
   height: 100%;
   top: 0px;
   left: 0px;
-  z-index: 1000;
+  z-index: 0;
   display: flex;
   flex-direction: row;
   padding-top: 10px;
+}
+
+.loaderContainer {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:100%;
 }
 
 .leftPanel {
@@ -79,7 +87,6 @@
   transition: all 0.1s ease-in-out;
 }
 
-
 #addCategory:active {
   background-color: var(--active-yellow);
   color: #ffffff;
@@ -97,7 +104,7 @@
 
 .addCategoryForm[type="text"], textarea{
   color: #ffffff;
-  background-color: #131000;
+  background-color: #1d1d1d;
   border: 0px;
   margin-right: 15px;
   height: 30px;
@@ -160,7 +167,6 @@
   background-color: #424242;
 }
 
-
 .addNoteButton {
   color: #ffffff;
   font-weight: bold;
@@ -192,4 +198,83 @@
 .addNoteButton:active {
   background-color: var(--active-yellow);
   color: #ffffff;
+}
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color:#000000;
+  z-index: 1;
+  color: #ffffff;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: hsla(0, 0%, 11%, 0.479);
+}
+
+.textEditor {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textEditor > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.saveCancel {
+  background-color: #3f3f3f;
+  color: #ffffff;
+  font-size: 1.22rem;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  line-height: normal;
+  border-radius: 45px;
+  margin-bottom: 20px;
+  margin-right: 2%;
+}
+
+#save {
+  background-color: var(--base-yellow);
+}
+
+#titleText {
+  margin-top: .5%;
+  background-color: #000000;
+  border: 0px;
+  border-bottom: var(--base-yellow) 1px solid;
+  margin-left: 10%;
+  margin-right: 70%;
+  color: var(--base-yellow);
+  font-size: 2rem;
+}
+
+#noteContainer{
+  margin-top: 1%;
+  margin-bottom: 1.5%;
+  width: 80%;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #1d1d1d;
+  color: #ffffff;
+  border: 0px;
+  font-size: 1.2rem;
 }
