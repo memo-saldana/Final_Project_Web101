@@ -60,8 +60,8 @@ class App extends React.Component {
   }
 
   _addCategory(categoryName) {
-    let { categories } = this.state.info;
-    let exists = categories.some(cat => cat.name === categoryName);
+    const { categories } = this.state.info;
+    const exists = categories.some(cat => cat.name === categoryName);
     
     if(categoryName !== "" && !exists){
       const newCategory = {
