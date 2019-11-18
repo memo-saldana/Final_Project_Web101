@@ -10,11 +10,12 @@ const MainPage = (props) => (
       selectCatHandler={props.selectCatHandler}
       isFormShown={props.isFormShown}
       hideForm={props.hideForm}
-      selectedCategory={props.selectedCategory}
+      selectedCategory={props.selectedCategory.name}
     />
     <RightPanel
       contents={props.contents}
-      selectedCategory={props.selectedCategory}
+      categoryContents={props.selectedCategory.contents}
+      editHandler={props.editHandler}
       showModalHandler={props.showModalHandler}
     />
   </div>

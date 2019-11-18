@@ -20,12 +20,13 @@ class App extends React.Component {
       showModal: false
     };
 
-    this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
-    this._showAddCategoryForm = this._showAddCategoryForm.bind(this);
     this._addCategory = this._addCategory.bind(this);
     this._addNotes = this._addNotes.bind(this);
+    this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
+    this._editNotes = this._editNotes.bind(this);
     this._handleCloseModal = this._handleCloseModal.bind(this);
     this._handleOpenModal = this._handleOpenModal.bind(this);
+    this._showAddCategoryForm = this._showAddCategoryForm.bind(this);
   }
 
   componentDidMount() {
@@ -79,20 +80,17 @@ class App extends React.Component {
   }
 
   _addNotes(title, notes) {
-    var {info, selectedCategory} = this.state
+    let {info, selectedCategory} = this.state
 
     const exists = selectedCategory.contents.some(note => note.title === title);
     
-    if(! exists) {
-      const newNote = {
-        "title": title,
-        "notes": notes 
-      };
+    if(!exists) {
+      const newNote = { title, notes };
   
-      var {contents} = selectedCategory;
+      let { contents } = selectedCategory;
       contents = [...contents, newNote];
   
-      var updatedCat = info.categories.filter(cat => cat.name === selectedCategory.name)[0];
+      let updatedCat = info.categories.filter(cat => cat.name === selectedCategory.name)[0];
       updatedCat.contents = contents
   
       this.setState({
@@ -104,7 +102,18 @@ class App extends React.Component {
     }
   }
 
-  _handleCloseModal () {
+  _editNotes(oldTitle, editedContent) {
+    let { selectedCategory } = this.state;
+    let index = selectedCategory.contents.findIndex(c => c.title === oldTitle);
+
+    selectedCategory.contents[index] = editedContent;
+    
+    this.setState({
+      selectedCategory
+    });
+  }
+
+  _handleCloseModal() {
     this.setState({ showModal: false });
   }
 
@@ -113,6 +122,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.info);
     return (
       <div>
         {this.state.isFetching ? 
@@ -129,11 +139,12 @@ class App extends React.Component {
             <MainPage
               addCategoryHandler={this._addCategory}
               categories={this.state.info.categories}
-              selectCatHandler={this._changeSelectedCategory}
-              isFormShown={this.state.isFormShown}
-              hideForm={this._showAddCategoryForm}
-              selectedCategory={this.state.selectedCategory.name}
               contents={this.state.selectedCategory.contents}
+              editHandler={this._editNotes}
+              hideForm={this._showAddCategoryForm}
+              isFormShown={this.state.isFormShown}
+              selectCatHandler={this._changeSelectedCategory}
+              selectedCategory={this.state.selectedCategory}
               showModalHandler={this._handleOpenModal}
             />
             <Modal 

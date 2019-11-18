@@ -6,8 +6,8 @@ class TextEditor extends React.Component {
     super(props);
 
     this.state = {
-      title: "",
-      notes: "",
+      title: this.props.title || "",
+      notes: this.props.notes || "",
     }
 
     this._handleChange = this._handleChange.bind(this);
@@ -16,6 +16,7 @@ class TextEditor extends React.Component {
 
   _handleChange(e) {
    const {name, value} = e.target;
+
    this.setState({
      [name]: value
    });
@@ -37,7 +38,7 @@ class TextEditor extends React.Component {
           name="title" 
           onChange={this._handleChange}
           type="text"
-          value={this.props.title}
+          value={this.state.title || ""}
           placeholder="Title..."
         />
         <textarea
@@ -45,7 +46,7 @@ class TextEditor extends React.Component {
           name="notes"
           onChange={this._handleChange}
           placeholder="Notes..."
-          value={this.props.contents}
+          value={this.state.notes || ""}
         />
 
         <div style={{marginRight:"143px"}}>
