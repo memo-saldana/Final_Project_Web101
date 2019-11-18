@@ -80,21 +80,16 @@ class App extends React.Component {
   }
 
   _addNotes(title, notes) {
-    let {info, selectedCategory} = this.state
-
+    let { selectedCategory } = this.state
     const exists = selectedCategory.contents.some(note => note.title === title);
     
     if(!exists) {
       const newNote = { title, notes };
-  
-      let { contents } = selectedCategory;
-      contents = [...contents, newNote];
-  
-      let updatedCat = info.categories.filter(cat => cat.name === selectedCategory.name)[0];
-      updatedCat.contents = contents
+      const { contents } = selectedCategory;
+      selectedCategory.contents = [...contents, newNote];
   
       this.setState({
-        info,
+        selectedCategory,
         showModal: false
       });
     } else {

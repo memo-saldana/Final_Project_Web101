@@ -84,6 +84,4 @@ class RightPanel extends React.Component   {
   }
 }
 
-
-
 export default RightPanel;
