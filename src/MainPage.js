@@ -16,6 +16,7 @@ const MainPage = (props) => (
       contents={props.contents}
       categoryContents={props.selectedCategory.contents}
       deleteCatHandler={props.deleteCatHandler}
+      deleteNoteHandler={props.deleteNoteHandler}
       editCatHandler={props.editCatHandler}
       editNoteHandler={props.editNoteHandler}
       showModalHandler={props.showModalHandler}

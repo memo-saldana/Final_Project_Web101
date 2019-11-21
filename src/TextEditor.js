@@ -6,12 +6,18 @@ class TextEditor extends React.Component {
     super(props);
 
     this.state = {
+      _id: this.props._id || undefined,
       title: this.props.title || "",
-      notes: this.props.notes || "",
+      notes: this.props.notes || ""
     }
 
+    this._deleteNote = this._deleteNote.bind(this);
     this._handleChange = this._handleChange.bind(this);
     this._saveNote = this._saveNote.bind(this);
+  }
+
+  _deleteNote() {
+    this.props.deleteNoteHandler(this.state._id);
   }
 
   _handleChange(e) {
@@ -31,6 +37,7 @@ class TextEditor extends React.Component {
   }
 
   render() {
+    const deleteButton = <Button className="saveCancel" handler={this._deleteNote} name="Delete" id="delete"/>
     return(
       <div className="textEditor">
         <input
@@ -49,6 +56,7 @@ class TextEditor extends React.Component {
           value={this.state.notes || ""}
         />
         <div style={{marginRight:"143px"}}>
+          {this.props.deleteButton ? deleteButton : null}
           <Button
             className="saveCancel"
             handler={this.props.cancelHandler}

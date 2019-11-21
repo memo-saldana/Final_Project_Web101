@@ -17,12 +17,13 @@ class RightPanel extends React.Component   {
       selectedContent: {}
     };
 
+    this._deleteCategory = this._deleteCategory.bind(this);
+    this._deleteNote = this._deleteNote.bind(this);
+    this._editCatTitle = this._editCatTitle.bind(this);
     this._handleCloseModal = this._handleCloseModal.bind(this);
     this._handleOpenModal = this._handleOpenModal.bind(this);
     this._handleSave = this._handleSave.bind(this);
     this._handleChange = this._handleChange.bind(this);
-    this._deleteCategory = this._deleteCategory.bind(this);
-    this._editCatTitle = this._editCatTitle.bind(this);
   }
 
   _handleSave(title, notes) {
@@ -70,6 +71,13 @@ class RightPanel extends React.Component   {
 
   _deleteCategory() {
     this.props.deleteCatHandler(this.props._id);
+  }
+
+  _deleteNote(_id) {
+    this.setState({
+      showModal: false
+    })
+    this.props.deleteNoteHandler(_id);
   }
 
   componentDidUpdate(prevProps) {
@@ -128,6 +136,9 @@ class RightPanel extends React.Component   {
         >
           <TextEditor 
             cancelHandler={this._handleCloseModal}
+            deleteButton={true}
+            deleteNoteHandler={this._deleteNote}
+            _id={this.state.selectedContent._id}
             notes={this.state.selectedContent.notes}
             saveHandler={this._handleSave}
             title={this.state.selectedContent.title}

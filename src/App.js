@@ -23,6 +23,7 @@ class App extends React.Component {
     this._addCategory = this._addCategory.bind(this);
     this._addNotes = this._addNotes.bind(this);
     this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
+    this._deleteNote = this._deleteNote.bind(this);
     this._deleteCategory = this._deleteCategory.bind(this);
     this._editCategory = this._editCategory.bind(this);
     this._editNotes = this._editNotes.bind(this);
@@ -110,6 +111,14 @@ class App extends React.Component {
     });
   }
 
+  _deleteNote(_id) {
+    let { selectedCategory } = this.state;
+    selectedCategory.contents = selectedCategory.contents.filter(c => c._id !== _id);
+    this.setState({
+      selectedCategory
+    })
+  }
+
   _editCategory(newCatName) {
     let newCat = this.state.selectedCategory;
     newCat.name = newCatName;
@@ -125,7 +134,7 @@ class App extends React.Component {
 
     this.setState({
       info,
-      selectedCategory: info.categories[0]
+      selectedCategory: info.categories[0],
     });
   }
   
@@ -156,6 +165,7 @@ class App extends React.Component {
               categories={this.state.info.categories}
               contents={this.state.selectedCategory.contents}
               deleteCatHandler={this._deleteCategory}
+              deleteNoteHandler={this._deleteNote}
               editCatHandler={this._editCategory}
               editNoteHandler={this._editNotes}
               hideForm={this._showAddCategoryForm}
