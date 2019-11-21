@@ -23,6 +23,8 @@ class App extends React.Component {
     this._addCategory = this._addCategory.bind(this);
     this._addNotes = this._addNotes.bind(this);
     this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
+    this._deleteCategory = this._deleteCategory.bind(this);
+    this._editCategory = this._editCategory.bind(this);
     this._editNotes = this._editNotes.bind(this);
     this._handleCloseModal = this._handleCloseModal.bind(this);
     this._handleOpenModal = this._handleOpenModal.bind(this);
@@ -108,6 +110,25 @@ class App extends React.Component {
     });
   }
 
+  _editCategory(newCatName) {
+    let newCat = this.state.selectedCategory;
+    newCat.name = newCatName;
+
+    this.setState({
+      selectedCategory: newCat
+    });   
+  }
+
+  _deleteCategory(_id) {
+    let { info } = this.state;
+    info.categories = info.categories.filter(cat => cat._id !== _id);
+
+    this.setState({
+      info,
+      selectedCategory: info.categories[0]
+    });
+  }
+  
   _handleCloseModal() {
     this.setState({ showModal: false });
   }
@@ -117,7 +138,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.info);
     return (
       <div>
         {this.state.isFetching ? 
@@ -135,7 +155,9 @@ class App extends React.Component {
               addCategoryHandler={this._addCategory}
               categories={this.state.info.categories}
               contents={this.state.selectedCategory.contents}
-              editHandler={this._editNotes}
+              deleteCatHandler={this._deleteCategory}
+              editCatHandler={this._editCategory}
+              editNoteHandler={this._editNotes}
               hideForm={this._showAddCategoryForm}
               isFormShown={this.state.isFormShown}
               selectCatHandler={this._changeSelectedCategory}

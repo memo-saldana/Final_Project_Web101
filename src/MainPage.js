@@ -15,8 +15,12 @@ const MainPage = (props) => (
     <RightPanel
       contents={props.contents}
       categoryContents={props.selectedCategory.contents}
-      editHandler={props.editHandler}
+      deleteCatHandler={props.deleteCatHandler}
+      editCatHandler={props.editCatHandler}
+      editNoteHandler={props.editNoteHandler}
       showModalHandler={props.showModalHandler}
+      title={props.selectedCategory.name}
+      _id={props.selectedCategory._id}
     />
   </div>
 );

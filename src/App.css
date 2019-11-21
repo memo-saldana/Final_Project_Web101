@@ -278,3 +278,45 @@
   border: 0px;
   font-size: 1.2rem;
 }
+
+.catInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.editDelete {
+  color: #ffffff;
+  font-size: 1.22rem;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  line-height: normal;
+  border-radius: 45px;
+  margin-bottom: 20px;
+  margin-right: 2%;
+  width: 7%;
+}
+
+#edit {
+  background-color: var(--base-yellow);
+}
+
+#delete {
+  background-color:#ff004c;
+}
+
+#titleCategory {
+  background-color: #000000;
+  border: 0px;
+  border-bottom: var(--base-yellow) 1px solid;
+  margin-right: 40px;
+  color: var(--base-yellow);
+  font-size: 2rem;
+}

@@ -48,7 +48,6 @@ class TextEditor extends React.Component {
           placeholder="Notes..."
           value={this.state.notes || ""}
         />
-
         <div style={{marginRight:"143px"}}>
           <Button
             className="saveCancel"
