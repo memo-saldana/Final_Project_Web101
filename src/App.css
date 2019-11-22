@@ -129,6 +129,7 @@
   line-height: 22px;
   font-size: 1.12em;
 }
+
 .addCategoryButton:hover {
   background-color: var(--hover-yellow);
   -webkit-transition: all 0.1s ease-in-out;
@@ -227,10 +228,22 @@
   flex-direction: column;
 }
 
-.textEditor > div {
+.modal-button-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+#mde {
+  margin-right: 10%;
+  margin-top: 1.5%;
+  margin-bottom: 2%;
+  margin-left: 10%;
+}
+
+.mdeEditor {
+  height: 650px;
+  overflow-y: scroll;
 }
 
 .saveCancel {
@@ -306,10 +319,12 @@
 
 #edit {
   background-color: var(--base-yellow);
+  width: 11%;
 }
 
 #delete {
   background-color:#ff004c;
+  width: 11%;
 }
 
 #titleCategory {
