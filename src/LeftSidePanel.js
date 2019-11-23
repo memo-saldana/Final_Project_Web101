@@ -1,10 +1,13 @@
 import AddCategoryForm from './AddCategoryForm';
 import Button from './Button';
+import { Link } from 'react-router-dom';
 import React from 'react';
 
 const LeftPanel = (props) => (
   <div className="leftPanel">
-    <p className="logout">Logout</p>
+    <Link to="/login">
+      <p className="logout">Logout</p>
+    </Link>
     {props.categories.map(category => (
       <Button
         className="categoryButton"

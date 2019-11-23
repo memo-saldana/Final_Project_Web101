@@ -1,4 +1,5 @@
 import Button from './Button';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class SignupPage extends React.Component {
@@ -15,6 +16,12 @@ class SignupPage extends React.Component {
     this._signUp = this._signUp.bind(this);
   }
 
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   _handleChamge(e) {
     const {name , value} = e.target;
     this.setState({ [name]: value });
@@ -22,6 +29,8 @@ class SignupPage extends React.Component {
 
   _signUp() {
     console.log("Do login stuff here");
+
+    this.props.history.push("/");
   }
 
   render() {

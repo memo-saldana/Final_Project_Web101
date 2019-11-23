@@ -1,7 +1,7 @@
 import Button from './Button';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class LoginPage extends React.Component {
   constructor() {
@@ -39,11 +39,12 @@ class LoginPage extends React.Component {
         <input name="email" onChange={this._handleChamge} placeholder="Email" type="email" />
         <input name="password" onChange={this._handleChamge} placeholder="Password" type="password"/>
         <Button className="saveCancel" handler={this._login} id="save" name="Login"/>
+        <Link to="/signup">
+          <p className="logout">Don't have an account? Sign up!</p>
+        </Link>
       </div>
     );
   }
 }
 
-const Login = withRouter(LoginPage);
-
-export default Login;
+export default withRouter(LoginPage);
