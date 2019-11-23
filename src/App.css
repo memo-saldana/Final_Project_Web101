@@ -4,6 +4,15 @@
   --active-yellow: #fdda3c;
 }
 
+input[type="text"], input[type="password"], textarea:focus{
+  outline: none;
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  transition: all 0.30s ease-in-out;
+}
+
 .App {
   background-color: #000000;
   position: fixed;
@@ -28,10 +37,28 @@
 .leftPanel {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 20%;
   border-right-style: solid;
   border-right-color: #424242;
   border-width: 1px;
+  overflow-y: auto;
+}
+
+.logout {
+  color: #3f3f3f;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.logout:hover {
+  color: var(--base-yellow);
+  -webkit-transition: all 0.10s ease-in-out;
+  -moz-transition: all 0.10s ease-in-out;
+  -ms-transition: all 0.10s ease-in-out;
+  -o-transition: all 0.10s ease-in-out;
+  transition: all 0.10s ease-in-out;
 }
 
 .categoryButton {
@@ -41,8 +68,8 @@
   font-weight: bold;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 0.3%;
-  padding-right: 0.3%;
+  padding-left: 5%;
+  padding-right: 5%;
   vertical-align: middle;
   text-align: center;
   display: inline-block;
@@ -147,6 +174,7 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+  overflow-y: auto;
 }
 
 .noteTitle {
@@ -322,9 +350,30 @@
   width: 11%;
 }
 
+#edit:hover {
+  background-color: var(--hover-yellow);
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+#edit:active {
+ background-color: var(--active-yellow);
+}
+
 #delete {
   background-color:#ff004c;
   width: 11%;
+}
+
+#delete:hover {
+  background-color: #ff1e62;
+}
+
+#delete:active {
+  background-color: #ff2a6a;
 }
 
 #titleCategory {
@@ -333,5 +382,30 @@
   border-bottom: var(--base-yellow) 1px solid;
   margin-right: 40px;
   color: var(--base-yellow);
+  font-size: 2rem;
+}
+
+.loginContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
+
+.loginContainer>input[type="email"], input[type="password"] {
+  border: 0px;
+  border-bottom: #3f3f3f 1px solid;
+}
+
+.loginContainer>input[type="email"]:focus, input[type="password"]:focus {
+  border-bottom: var(--base-yellow) 1px solid;
+}
+
+.loginContainer > input[type="email"], input[type="password"], textarea {
+  background-color: #000000;
+  color: #ffffff;
+  margin-top: 2%;
+  margin-bottom: 2%;
   font-size: 2rem;
 }

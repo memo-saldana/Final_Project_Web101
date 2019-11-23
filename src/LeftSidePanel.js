@@ -4,6 +4,7 @@ import React from 'react';
 
 const LeftPanel = (props) => (
   <div className="leftPanel">
+    <p className="logout">Logout</p>
     {props.categories.map(category => (
       <Button
         className="categoryButton"
