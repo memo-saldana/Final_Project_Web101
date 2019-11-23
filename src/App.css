@@ -4,13 +4,17 @@
   --active-yellow: #fdda3c;
 }
 
-input[type="text"], input[type="password"], textarea:focus{
+#titleCategory, input[type="email"], input[type="password"], textarea:focus{
   outline: none;
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
   -o-transition: all 0.30s ease-in-out;
   transition: all 0.30s ease-in-out;
+}
+
+div:focus {
+  outline: none;
 }
 
 .App {
@@ -402,7 +406,7 @@ input[type="text"], input[type="password"], textarea:focus{
   border-bottom: var(--base-yellow) 1px solid;
 }
 
-.loginContainer > input[type="email"], input[type="password"], textarea {
+.loginContainer > input[type="email"], input[type="password"] {
   background-color: #000000;
   color: #ffffff;
   margin-top: 2%;

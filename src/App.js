@@ -10,10 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 class App extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      isLoggedin: true
-    };
+    this.state = { isLoggedin: true };
   }
 
   render() {
