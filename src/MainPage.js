@@ -7,10 +7,11 @@ const MainPage = (props) => (
     <LeftPanel
       addCategoryHandler={props.addCategoryHandler}
       categories={props.categories}
-      selectCatHandler={props.selectCatHandler}
-      isFormShown={props.isFormShown}
       hideForm={props.hideForm}
+      isFormShown={props.isFormShown}
+      logoutHandler={props.logoutHandler}
       selectedCategory={props.selectedCategory.name}
+      selectCatHandler={props.selectCatHandler}
     />
     <RightPanel
       contents={props.contents}

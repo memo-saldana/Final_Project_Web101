@@ -6,7 +6,7 @@ import React from 'react';
 const LeftPanel = (props) => (
   <div className="leftPanel">
     <Link to="/login">
-      <p className="logout">Logout</p>
+      <p className="logout" onClick={props.logoutHandler}>Logout</p>
     </Link>
     {props.categories.map(category => (
       <Button

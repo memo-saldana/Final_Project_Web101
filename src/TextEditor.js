@@ -19,7 +19,7 @@ class TextEditor extends React.Component {
       _id: this.props._id || undefined,
       title: this.props.title || "",
       notes: this.props.notes || "",
-      selectedTab: "preview"
+      selectedTab: this.props.selectedTab
     }
 
     this._deleteNote = this._deleteNote.bind(this);

@@ -9,8 +9,8 @@ import TextEditor from './TextEditor';
 Modal.setAppElement('#root');
 
 class MainApp extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       info: {},
@@ -170,6 +170,7 @@ class MainApp extends React.Component {
               editNoteHandler={this._editNotes}
               hideForm={this._showAddCategoryForm}
               isFormShown={this.state.isFormShown}
+              logoutHandler={this.props.logoutHandler}
               selectCatHandler={this._changeSelectedCategory}
               selectedCategory={this.state.selectedCategory}
               showModalHandler={this._handleOpenModal}
@@ -180,7 +181,7 @@ class MainApp extends React.Component {
               className="Modal"
               overlayClassName="Overlay"
             >
-              <TextEditor cancelHandler={this._handleCloseModal} saveHandler={this._addNotes}/>
+              <TextEditor cancelHandler={this._handleCloseModal} saveHandler={this._addNotes} selectedTab="write"/>
             </Modal>
           </div>
         }

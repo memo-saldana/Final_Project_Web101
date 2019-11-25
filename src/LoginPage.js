@@ -1,7 +1,7 @@
 import Button from './Button';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class LoginPage extends React.Component {
   constructor() {
@@ -28,8 +28,7 @@ class LoginPage extends React.Component {
   }
 
   _login() {
-    console.log("Do login stuff here");
-
+    this.props.loginHandler();
     this.props.history.push('/');
   }
 
@@ -47,4 +46,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;

@@ -141,6 +141,7 @@ class RightPanel extends React.Component   {
             _id={this.state.selectedContent._id}
             notes={this.state.selectedContent.notes}
             saveHandler={this._handleSave}
+            selectedTab="preview"
             title={this.state.selectedContent.title}
           />
         </Modal>
