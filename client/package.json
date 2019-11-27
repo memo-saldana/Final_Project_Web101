@@ -1,5 +1,9 @@
 {
   "name": "final-project",
+  "repository": {
+    "url": "https://github.com/emifervi/Final_Project_Web101"
+  },
+  "description": "Web class final project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
