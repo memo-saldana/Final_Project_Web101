@@ -11,6 +11,7 @@ const express = require('express'),
       eHandler = require('./middleware/errorHandling'),
       sendAsJSON = require('./middleware/sendAsJson'),
       // Routers
+      categoryRoutes = require('./routes/category'),
       authRoutes = require('./routes/auth');
 
 // DB Setup
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Routes
 app.use('/api', authRoutes);
+app.use('/api/users/:userId/categories', categoryRoutes);
 
 // Error handling
 app.use(eHandler());
