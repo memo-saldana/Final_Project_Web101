@@ -4,10 +4,6 @@ const User = require('../db/models/user'),
 
 ctr.signup = () => async (req,res,next) => {
   const { email, confirmPassword, password } = req.body;
-  console.log('req.body :', req.body);
-  console.log('email :', email);
-  console.log('confirmPassword :', confirmPassword);
-  console.log('password :', password);
   if(password != confirmPassword) return Promise.reject(new MyError(400, "Passwords do not match."));
   let user = new User({ email, password})
   await user.save();
@@ -19,8 +15,6 @@ ctr.signup = () => async (req,res,next) => {
 
 ctr.login = () => async (req,res,next) => {
   const {email, password} = req.body;
-  console.log('email :', email);
-  console.log('password :', password);
   let user = await User.findOne({email}).exec();
   if(!user) return Promise.reject(new MyError(401, "Email or password incorrect, try again."));
 

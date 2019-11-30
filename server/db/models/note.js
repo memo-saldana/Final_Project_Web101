@@ -15,12 +15,12 @@ let noteSchema = new mongoose.Schema({
 })
 
 noteSchema.statics.findAllFromCategory = async function(category) {
-  return await this.find({category}).lean().exec();
+  return await this.find({category}).exec();
 }
 
 
 noteSchema.statics.findOneFromCategory = async function(noteId, category) {
-  return await this.findOne({_id:noteId, category}).lean().exec();
+  return await this.findOne({_id:noteId, category}).exec();
 }
 
 
