@@ -14,6 +14,7 @@ class LoginPage extends React.Component {
       error: ""
     }
 
+    this._handleKeyDown = this._handleKeyDown.bind(this);
     this._handleChange = this._handleChange.bind(this);
     this._login = this._login.bind(this);
   }
@@ -39,13 +40,17 @@ class LoginPage extends React.Component {
       this.props.history.push('/')
     }
   }
-
+  _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      this._login();
+    }
+  }
   render() {
     return(
       <div className="loginContainer">
         <p className='error'>{this.state.error}</p>
-        <input name="email" onChange={this._handleChange} placeholder="Email" type="email" />
-        <input name="password" onChange={this._handleChange} placeholder="Password" type="password"/>
+        <input onKeyDown={this._handleKeyDown} name="email" onChange={this._handleChange} placeholder="Email" type="email" />
+        <input onKeyDown={this._handleKeyDown} name="password" onChange={this._handleChange} placeholder="Password" type="password"/>
         <Button className="saveCancel" handler={this._login} id="save" name="Login"/>
         <Link to="/signup">
           <p className="logout">Don't have an account? Sign up!</p>

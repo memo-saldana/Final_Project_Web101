@@ -1,13 +1,14 @@
 import './App.css';
-import data from './dummy';
 import Loader from 'react-loader-spinner';
 import MainPage from './MainPage'
 import Modal from 'react-modal';
 import React from 'react';
 import TextEditor from './TextEditor';
+import axios from 'axios';
 
 Modal.setAppElement('#root');
 
+const URI = 'https://webdevclass-finalproject.herokuapp.com';
 class MainApp extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,8 @@ class MainApp extends React.Component {
       isFetching: true,
       isFormShown: false,
       selectedCategory: {},
-      showModal: false
+      showModal: false,
+      error: ""
     };
 
     this._addCategory = this._addCategory.bind(this);
@@ -33,14 +35,30 @@ class MainApp extends React.Component {
   }
 
   componentDidMount() {
-    // fetch here
-    let info = data.find(obj => obj.userName === 'Emilio');
-    
-    this.setState({
-      info,
-      selectedCategory: info.categories[0],
-      isFetching: false
-    });
+    let id = localStorage.getItem('userId');
+    console.log('id :', id);
+    let jwt = localStorage.getItem('token')
+    console.log('jwt :', jwt);
+    axios.get(URI+'/api/users/'+id+'/categories/notes',
+    {
+      headers: {
+        'Authorization': 'Bearer '+ jwt
+      }
+    })
+    .then(response => {
+      console.log('response.data :', response.data);
+      this.setState({
+        info: response.data,
+        selectedCategory: response.data.categories[0] || {},
+        isFetching: false
+      });
+    })
+    .catch(error => {
+      if(error.response) {
+        alert(error.response.data.message)
+      }
+      else alert(error.message)
+    })
   }
 
   _changeSelectedCategory(e) {
@@ -67,53 +85,94 @@ class MainApp extends React.Component {
     const exists = categories.some(cat => cat.name === categoryName);
     
     if(categoryName !== "" && !exists){
-      const newCategory = {
-        "name": categoryName,
-        "contents": []
-      }
+      axios.post(URI+'/api/users/'+localStorage.getItem('userId')+'/categories',
+      {
+        name: categoryName
+      },{
+        headers: {
+          "Authorization": 'Bearer '+localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        let {category} = response.data;
+        const categorySet = [...this.state.info.categories, category];
+        const  { info } = this.state;
+        info.categories = categorySet;
   
-      const categorySet = [...this.state.info.categories, newCategory];
-      const  { info } = this.state;
-      info.categories = categorySet;
-  
-      this.setState({ info });
+        this.setState({ info });
+        this.setState({ isFormShown: false });
+      }).catch(error => {
+        if(error.response) {
+          alert(error.response.data.message)
+        }
+        else alert(error.message)
+        
+      });
     }
 
-    this.setState({ isFormShown: false });
   }
 
-  _addNotes(title, notes) {
+  _addNotes(title, text) {
+    console.log('text :', text);
     let { selectedCategory } = this.state
-    const exists = selectedCategory.contents.some(note => note.title === title);
+    const exists = selectedCategory.notes.some(note => note.title === title);
     
     if(!exists) {
-      const newNote = { title, notes };
-      const { contents } = selectedCategory;
-      selectedCategory.contents = [...contents, newNote];
-  
-      this.setState({
-        selectedCategory,
-        showModal: false
+      axios.post(URI+'/api/users/'+localStorage.getItem('userId')+'/categories/'+selectedCategory._id+'/notes',
+      { title, text},
+      {
+        headers: {
+          "Authorization": 'Bearer '+localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        const { notes } = selectedCategory;
+        selectedCategory.notes = [...notes, response.data.note];
+        this.setState({
+          selectedCategory,
+          showModal: false
+        });
+      }).catch(error => {
+        if(error.response) {
+          alert(error.response.data.message)
+        }
+        else alert(error.message)
       });
+  
     } else {
       alert(`The title ${title} already exists`);
     }
   }
 
-  _editNotes(oldTitle, editedContent) {
+  _editNotes(_id, editedContent) {
     let { selectedCategory } = this.state;
-    let index = selectedCategory.contents.findIndex(c => c.title === oldTitle);
-
-    selectedCategory.contents[index] = editedContent;
-    
-    this.setState({
-      selectedCategory
-    });
+    let index = selectedCategory.notes.findIndex(c => c._id === _id);
+    axios.put(URI+'/api/users/'+
+              localStorage.getItem('userId')+
+              '/categories/'+selectedCategory._id+
+              '/notes/'+_id,
+              {
+                title: editedContent.title,
+                text: editedContent.text
+              },{
+                headers:{
+                  "Authorization":'Bearer '+localStorage.getItem('token')
+                }
+              })
+      .then(response => {
+        selectedCategory.notes[index] = response.data.note;
+        this.setState({selectedCategory})
+      }).catch(error => {
+        if(error.response) {
+          alert(error.response.data.message)
+        }
+        else alert(error.message)
+      });
   }
 
   _deleteNote(_id) {
     let { selectedCategory } = this.state;
-    selectedCategory.contents = selectedCategory.contents.filter(c => c._id !== _id);
+    selectedCategory.notes = selectedCategory.notes.filter(c => c._id !== _id);
     this.setState({
       selectedCategory
     })
@@ -163,7 +222,7 @@ class MainApp extends React.Component {
             <MainPage
               addCategoryHandler={this._addCategory}
               categories={this.state.info.categories}
-              contents={this.state.selectedCategory.contents}
+              contents={this.state.selectedCategory.notes || []}
               deleteCatHandler={this._deleteCategory}
               deleteNoteHandler={this._deleteNote}
               editCatHandler={this._editCategory}

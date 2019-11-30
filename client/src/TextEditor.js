@@ -18,7 +18,7 @@ class TextEditor extends React.Component {
     this.state = {
       _id: this.props._id || undefined,
       title: this.props.title || "",
-      notes: this.props.notes || "",
+      text: this.props.text || "",
       selectedTab: this.props.selectedTab
     }
 
@@ -42,7 +42,7 @@ class TextEditor extends React.Component {
 
   _handleChange(value) {
    this.setState({
-     notes: value
+     text: value
    });
   }
 
@@ -53,10 +53,10 @@ class TextEditor extends React.Component {
   }
 
   _saveNote() {
-    const {title, notes} = this.state
-    
-    title !== "" && notes !== "" ? 
-      this.props.saveHandler(title, notes) :
+    const {title, text} = this.state
+
+    title !== "" && text !== "" ? 
+      this.props.saveHandler(title, text) :
       this.props.cancelHandler();
   }
 
@@ -76,7 +76,7 @@ class TextEditor extends React.Component {
         <div className="containter" id="mde">
           <ReactMde
             className= {tab === "write" ? "":"mdeEditor"}
-            value={this.state.notes}
+            value={this.state.text}
             onChange={this._handleChange}
             selectedTab={this.state.selectedTab}
             onTabChange={this._changeTab}

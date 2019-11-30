@@ -12,7 +12,7 @@ class RightPanel extends React.Component   {
     this.state = {
       categoryName: this.props.title,
       oldCatName: this.props.title,
-      oldTitle: "",
+      _id: "",
       showModal: false,
       selectedContent: {}
     };
@@ -26,14 +26,14 @@ class RightPanel extends React.Component   {
     this._handleChange = this._handleChange.bind(this);
   }
 
-  _handleSave(title, notes) {
-    const { oldTitle } = this.state;
-    const selectedContent = {title, notes};
-
-    this.props.editNoteHandler(oldTitle, selectedContent);
+  _handleSave(title, text) {
+    const { _id } = this.state;
+    const selectedContent = {title, text};
+    console.log('_id :', _id);
+    this.props.editNoteHandler(_id, selectedContent);
 
     this.setState({
-      oldTitle: "",
+      _id: "",
       showModal: false,
       selectedContent: {}
     });
@@ -51,7 +51,7 @@ class RightPanel extends React.Component   {
     const selectedContent = this.props.categoryContents.filter(cont => cont.title === selTitle)[0];
 
     this.setState({ 
-      oldTitle: selectedContent.title,
+      _id: selectedContent._id,
       showModal: true,
       selectedContent
     });
@@ -118,7 +118,7 @@ class RightPanel extends React.Component   {
         </div>
         {this.props.contents.map(content => (
           <NoteTitle
-            key={content.title}
+            key={content._id}
             title={content.title}
             handleOpenModal={this._handleOpenModal}
           />
@@ -139,7 +139,7 @@ class RightPanel extends React.Component   {
             deleteButton={true}
             deleteNoteHandler={this._deleteNote}
             _id={this.state.selectedContent._id}
-            notes={this.state.selectedContent.notes}
+            text={this.state.selectedContent.text}
             saveHandler={this._handleSave}
             selectedTab="preview"
             title={this.state.selectedContent.title}

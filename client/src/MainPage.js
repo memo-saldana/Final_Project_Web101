@@ -15,7 +15,7 @@ const MainPage = (props) => (
     />
     <RightPanel
       contents={props.contents}
-      categoryContents={props.selectedCategory.contents}
+      categoryContents={props.selectedCategory.notes}
       deleteCatHandler={props.deleteCatHandler}
       deleteNoteHandler={props.deleteNoteHandler}
       editCatHandler={props.editCatHandler}

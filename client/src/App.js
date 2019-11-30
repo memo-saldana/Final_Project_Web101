@@ -20,9 +20,9 @@ class App extends React.Component {
   _login(email, password) {
     return axios.post(URI+'/api/login', {email, password})
       .then( response => {
-        console.log('response :', response);
         this.setState({isLoggedin: true})
         localStorage.setItem('token', response.data.token)
+        localStorage.setItem('userId', response.data.user._id)
         return null;
       })
       .catch( error => {
@@ -34,10 +34,8 @@ class App extends React.Component {
   }
 
   _register(email, password, confirmPassword) {
-    console.log('email, password, confirmPassword :', email, password, confirmPassword);
     return axios.post(URI + '/api/signup', {email, password, confirmPassword})
       .then( response => {
-        console.log('response :', response);
         return null;
       })
       .catch(error => {
