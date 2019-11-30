@@ -8,7 +8,7 @@ ctr.signup = () => async (req,res,next) => {
   console.log('email :', email);
   console.log('confirmPassword :', confirmPassword);
   console.log('password :', password);
-  if(password != confirmPassword) return Promise.reject(new MyError(400, "Emails do not match."));
+  if(password != confirmPassword) return Promise.reject(new MyError(400, "Passwords do not match."));
   let user = new User({ email, password})
   await user.save();
   res.status(201).json({
