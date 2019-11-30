@@ -3,8 +3,8 @@ const User = require('../db/models/user'),
       ctr = {};
 
 ctr.signup = () => async (req,res,next) => {
-  const { email, confirmEmail, password } = req.body;
-  if(email != confirmEmail) return Promise.reject(new MyError(400, "Emails do not match."));
+  const { email, confirmPassword, password } = req.body;
+  if(password != confirmPassword) return Promise.reject(new MyError(400, "Emails do not match."));
   let user = new User({ email, password})
   await user.save();
   res.status(201).json({
