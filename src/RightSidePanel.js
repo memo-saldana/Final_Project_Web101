@@ -59,6 +59,7 @@ class RightPanel extends React.Component   {
 
   _handleChange(e) {
     const {name, value} = e.target;
+
     this.setState({
       [name]: value
     })
@@ -84,15 +85,16 @@ class RightPanel extends React.Component   {
     if(this.props.title !== prevProps.title) {
       this.setState({
         categoryName: this.props.title,
-        oldCatName: ""
+        oldCatName: this.props.title,
       })
     }
   }
 
   render() {
-    let delHandler = this.state.categoryName === "" ? null : this._deleteNote;
-    let disabled = this.state.categoryName === "";
-    console.log(this.props);
+    let delHandler = this._deleteNote;
+    let noteHandler = this.state.categoryName === "" ? null : this.props.showModalHandler;
+    let disabled = this.state.categoryName === ""
+                && this.state.oldCatName === "";
     return(
       <div className="rightPanel">
         <div className="catInfo">
@@ -130,7 +132,7 @@ class RightPanel extends React.Component   {
         ))}
         <Button
           className="addNoteButton"
-          handler={this.props.showModalHandler}
+          handler={noteHandler}
           name="+"
         />
         <Modal

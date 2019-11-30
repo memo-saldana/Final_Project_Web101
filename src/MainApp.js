@@ -147,6 +147,7 @@ class MainApp extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         {this.state.isFetching ? 
