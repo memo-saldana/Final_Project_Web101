@@ -413,3 +413,7 @@ div:focus {
   margin-bottom: 2%;
   font-size: 2rem;
 }
+
+.error {
+  color: #ff004c;
+}

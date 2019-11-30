@@ -9,10 +9,11 @@ class SignupPage extends React.Component {
     this.state = {
       email: "",
       password: "",
-      passwordConfirmation: ""
+      passwordConfirmation: "",
+      error: ""
     }
 
-    this._handleChamge = this._handleChamge.bind(this);
+    this._handleChange = this._handleChange.bind(this);
     this._signUp = this._signUp.bind(this);
   }
 
@@ -22,23 +23,32 @@ class SignupPage extends React.Component {
     history: PropTypes.object.isRequired
   };
 
-  _handleChamge(e) {
+  _handleChange(e) {
     const {name , value} = e.target;
     this.setState({ [name]: value });
   }
 
-  _signUp() {
-    console.log("Do login stuff here");
-
-    this.props.history.push("/");
+  async _signUp() {
+    // console.log("Do login stuff here");
+    let {email, password, passwordConfirmation} = this.state;
+    console.log('email, password, passwordConfirmation :', email, password, passwordConfirmation);
+    let error = await this.props.signUpHandler(email, password, passwordConfirmation)
+    console.log('error :', error);
+    if(error) {
+      this.setState({error})
+    } else {
+      this.props.history.push('/login')
+    }
+    
   }
 
   render() {
     return(
       <div className="loginContainer">
-        <input name="email" onChange={this._handleChamge} placeholder="Email" type="email" />
-        <input name="password" onChange={this._handleChamge} placeholder="Password" type="password"/>
-        <input name="passwordConfirmation" onChange={this._handleChamge} placeholder="Confirm password" type="password"/>
+        <p className="error">{this.state.error}</p>
+        <input name="email" onChange={this._handleChange} placeholder="Email" type="email" />
+        <input name="password" onChange={this._handleChange} placeholder="Password" type="password"/>
+        <input name="passwordConfirmation" onChange={this._handleChange} placeholder="Confirm password" type="password"/>
         <Button className="saveCancel" handler={this._signUp} id="save" name="Signup"/>
       </div>
     );
