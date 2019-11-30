@@ -45,7 +45,7 @@ ctr.edit = () => async (req,res,next) => {
 ctr.delete = () => async (req,res,next) => {
   const { categoryId, noteId } = req.params;
   
-  const note = await Note.remove(noteId, categoryId);
+  const note = await Note.findOneAndRemove({_id:noteId, category: categoryId }).lean().exec();
 
   return res.status(201).json({note});
 }
