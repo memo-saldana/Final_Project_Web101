@@ -10,8 +10,8 @@ class RightPanel extends React.Component   {
     super(props); 
     
     this.state = {
-      categoryName: this.props.title,
-      oldCatName: this.props.title,
+      categoryName: this.props.title || "",
+      oldCatName: this.props.title || "",
       _id: "",
       showModal: false,
       selectedContent: {}
@@ -59,6 +59,7 @@ class RightPanel extends React.Component   {
 
   _handleChange(e) {
     const {name, value} = e.target;
+
     this.setState({
       [name]: value
     })
@@ -84,12 +85,16 @@ class RightPanel extends React.Component   {
     if(this.props.title !== prevProps.title) {
       this.setState({
         categoryName: this.props.title,
-        oldCatName: ""
+        oldCatName: this.props.title,
       })
     }
   }
 
   render() {
+    let delHandler = this._deleteNote;
+    let noteHandler = this.state.categoryName === "" ? null : this.props.showModalHandler;
+    let disabled = this.state.categoryName === ""
+                && this.state.oldCatName === "";
     return(
       <div className="rightPanel">
         <div className="catInfo">
@@ -98,8 +103,10 @@ class RightPanel extends React.Component   {
             id="titleCategory"
             name="categoryName" 
             onChange={this._handleChange}
+            placeholder="Category Title"
             type="text"
             value={this.state.categoryName}
+            disabled={disabled}
           />
           <div style={{display:"flex", flexDirection:"row", width: "67%", justifyContent: "flex-end"}}>
             <Button 
@@ -110,7 +117,7 @@ class RightPanel extends React.Component   {
             />
             <Button 
               className="editDelete"
-              handler={this._deleteCategory}
+              handler={delHandler}
               id="delete"
               name="Delete"
             />
@@ -125,7 +132,7 @@ class RightPanel extends React.Component   {
         ))}
         <Button
           className="addNoteButton"
-          handler={this.props.showModalHandler}
+          handler={noteHandler}
           name="+"
         />
         <Modal
