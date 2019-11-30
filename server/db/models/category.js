@@ -17,7 +17,7 @@ categorySchema.statics.findByUser = async function(userId) {
 }
 
 categorySchema.statics.findOneFromUser = async function(categoryId, userId) {
-  return await this.findOne({_id: categoryId, owner: userId}).lean().exec()
+  return await this.findOne({_id: categoryId, owner: userId}).exec()
 }
 
 categorySchema.statics.removeCategoryCascade = async function(categoryId, userId) {
