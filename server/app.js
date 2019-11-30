@@ -8,9 +8,12 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       path = require('path'),
       PORT = process.env.PORT || 3000,
+      aHandler = require('express-async-handler'),
       eHandler = require('./middleware/errorHandling'),
       sendAsJSON = require('./middleware/sendAsJson'),
+      {isLoggedIn, ownsCategory} = require('./middleware/authMiddleware'),
       // Routers
+      noteRoutes = require('./routes/note'),
       categoryRoutes = require('./routes/category'),
       authRoutes = require('./routes/auth');
 
@@ -26,7 +29,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Routes
 app.use('/api', authRoutes);
-app.use('/api/users/:userId/categories', categoryRoutes);
+app.use('/api/users/:userId/categories', aHandler(isLoggedIn), categoryRoutes);
+app.use('/api/users/:userId/categories/:categoryId/notes', aHandler(ownsCategory), noteRoutes);
 
 // Error handling
 app.use(eHandler());

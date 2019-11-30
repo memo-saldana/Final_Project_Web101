@@ -44,8 +44,6 @@ let errorHandler = () => async (err,req,res,next) => {
       console.log('=============================')
       if(process.env.NODE_ENV === 'production'){
         next(new MyError(500, "SERVER ERROR"));
-      } else {
-        next(err)
       }
   }
 

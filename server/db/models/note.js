@@ -9,8 +9,19 @@ let noteSchema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'Category',
+    select: false
   }
 })
+
+noteSchema.statics.findAllFromCategory = async function(category) {
+  return await this.find({category}).lean().exec();
+}
+
+
+noteSchema.statics.findOneFromCategory = async function(noteId, category) {
+  return await this.findOne({_id:noteId, category}).lean().exec();
+}
+
 
 module.exports = mongoose.model('Note',noteSchema);

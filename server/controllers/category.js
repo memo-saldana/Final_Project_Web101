@@ -1,10 +1,32 @@
-const Category = require('../db/models/Category'),
+const Category = require('../db/models/category'),
+      Note = require('../db/models/note'),
       MyError = require('../middleware/MyError'),
       ctr = {};
 
 ctr.findAllFromUser = () => async (req,res,next) => {
   const { userId } = req.params;
-  const categories = await Category.findByUser(userId)
+  const categories = await Category.findByUser(userId);
+
+  return res.status(200).json({categories});
+}
+
+ctr.findAllPopulatedFromUser = () => async (req,res,next) => {
+  const { userId } = req.params;
+
+  const categories = await Category.findByUser(userId);
+
+  let promises = categories.map( category => {
+    return new Promise((resolve, reject) => {
+      Note.find({category})
+      .then(notes => resolve(notes))
+      .catch(err => reject(err))
+    });
+  })
+  let notesArrays = await Promise.all(promises);
+
+  notesArrays.forEach( (notes,i) => {
+    categories[i].notes = notes;
+  })
   
   return res.status(200).json({categories});
 }

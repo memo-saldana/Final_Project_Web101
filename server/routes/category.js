@@ -6,6 +6,9 @@ const express = require("express"),
 // FIND ALL
 router.get('/', aHandler(catCtr.findAllFromUser()));
 
+// FIND ALL
+router.get('/notes', aHandler(catCtr.findAllPopulatedFromUser()));
+
 // FIND ONE
 router.get('/:categoryId', aHandler(catCtr.findOneFromUser()));
 
