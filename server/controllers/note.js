@@ -19,6 +19,9 @@ ctr.findOneFromCategory = () => async (req,res,next) => {
 ctr.create = () => async (req,res,next) => {
   const { categoryId } = req.params;
   const { title, text } = req.body;
+  if(!title || title == "") return Promise.reject(new MyError(400, "Note title not received"));
+  if(!text || text == "") return Promise.reject(new MyError(400, "Note text not received"));
+
   let note = new Note({title, text, category: categoryId})
   await note.save();
 
@@ -28,8 +31,9 @@ ctr.create = () => async (req,res,next) => {
 ctr.edit = () => async (req,res,next) => {
   const { categoryId, noteId } = req.params;
   const { title, text } = req.body;
-  console.log('title :', title);
-  console.log('text :', text);
+  if(!title || title == "") return Promise.reject(new MyError(400, "Note title not received"));
+  if(!text || text == "") return Promise.reject(new MyError(400, "Note text not received"));
+
   const note = await Note.findOneFromCategory(noteId, categoryId);
   console.log('note :', note);
   if(!note) return Promise.reject(new MyError(404, "Note not found"));

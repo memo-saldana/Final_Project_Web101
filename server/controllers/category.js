@@ -41,7 +41,7 @@ ctr.findOneFromUser = () => async (req,res,next) => {
 ctr.create = () => async (req,res,next) => {
   const { userId } = req.params;
   const { name } = req.body;
-
+  if(!name || name == "") return Promise.reject(new MyError(400, "Category name not received"));
   let category = new Category({name, owner: userId})
 
   await category.save();
@@ -52,6 +52,8 @@ ctr.create = () => async (req,res,next) => {
 ctr.edit = () => async (req,res,next) => {
   const { userId, categoryId } = req.params;
   const { name } = req.body;
+  if(!name || name == "") return Promise.reject(new MyError(400, "Category name not received"));
+
   const category = await Category.findOneFromUser(categoryId, userId);
 
   if(!category) return Promise.reject(new MyError(404, "Category not found"));
