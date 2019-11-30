@@ -10,8 +10,8 @@ class RightPanel extends React.Component   {
     super(props); 
     
     this.state = {
-      categoryName: this.props.title,
-      oldCatName: this.props.title,
+      categoryName: this.props.title || "",
+      oldCatName: this.props.title || "",
       oldTitle: "",
       showModal: false,
       selectedContent: {}
@@ -90,6 +90,9 @@ class RightPanel extends React.Component   {
   }
 
   render() {
+    let delHandler = this.state.categoryName === "" ? null : this._deleteNote;
+    let disabled = this.state.categoryName === "";
+    console.log(this.props);
     return(
       <div className="rightPanel">
         <div className="catInfo">
@@ -98,8 +101,10 @@ class RightPanel extends React.Component   {
             id="titleCategory"
             name="categoryName" 
             onChange={this._handleChange}
+            placeholder="Category Title"
             type="text"
             value={this.state.categoryName}
+            disabled={disabled}
           />
           <div style={{display:"flex", flexDirection:"row", width: "67%", justifyContent: "flex-end"}}>
             <Button 
@@ -110,7 +115,7 @@ class RightPanel extends React.Component   {
             />
             <Button 
               className="editDelete"
-              handler={this._deleteCategory}
+              handler={delHandler}
               id="delete"
               name="Delete"
             />

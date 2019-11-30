@@ -38,7 +38,7 @@ class MainApp extends React.Component {
     
     this.setState({
       info,
-      selectedCategory: info.categories[0],
+      selectedCategory: info.categories[0] || {},
       isFetching: false
     });
   }
@@ -163,7 +163,7 @@ class MainApp extends React.Component {
             <MainPage
               addCategoryHandler={this._addCategory}
               categories={this.state.info.categories}
-              contents={this.state.selectedCategory.contents}
+              contents={this.state.selectedCategory.contents || []}
               deleteCatHandler={this._deleteCategory}
               deleteNoteHandler={this._deleteNote}
               editCatHandler={this._editCategory}
