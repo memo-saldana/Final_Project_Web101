@@ -25,7 +25,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Serves build
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.resolve('./client/build')));
 
 // Routes
 app.use('/api', authRoutes);
@@ -38,7 +38,7 @@ app.use(sendAsJSON());
 
 // Redirects everything else to index
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.resolve('./client/build/index.html'));
 });
 
 app.listen(PORT, _ => {
