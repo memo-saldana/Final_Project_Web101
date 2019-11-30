@@ -19,7 +19,7 @@ ctr.findOneFromCategory = () => async (req,res,next) => {
 ctr.create = () => async (req,res,next) => {
   const { categoryId } = req.params;
   const { title, text } = req.body;
-
+  console.log('text :', text);
   let note = new Note({title, text, category: categoryId})
 
   await note.save();
