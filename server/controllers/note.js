@@ -28,8 +28,10 @@ ctr.create = () => async (req,res,next) => {
 ctr.edit = () => async (req,res,next) => {
   const { categoryId, noteId } = req.params;
   const { title, text } = req.body;
+  console.log('title :', title);
+  console.log('text :', text);
   const note = await Note.findOneFromCategory(noteId, categoryId);
-
+  console.log('note :', note);
   if(!note) return Promise.reject(new MyError(404, "Note not found"));
 
   note.title = title? title : note.title;
