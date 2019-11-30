@@ -20,7 +20,7 @@ class App extends React.Component {
   _login(email, password) {
     return axios.post(URI+'/api/login', {email, password})
       .then( response => {
-        this.setState({isLoggedin: true})
+        this.setState({isLoggedin: localStorage.getItem('token') && localStorage.getItem('token').length>0 ? true: false })
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('userId', response.data.user._id)
         return null;
@@ -47,6 +47,8 @@ class App extends React.Component {
   }
 
   _logout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
     this.setState({ isLoggedin: false });
   }
 

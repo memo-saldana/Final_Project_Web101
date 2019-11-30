@@ -36,9 +36,7 @@ class MainApp extends React.Component {
 
   componentDidMount() {
     let id = localStorage.getItem('userId');
-    console.log('id :', id);
     let jwt = localStorage.getItem('token')
-    console.log('jwt :', jwt);
     axios.get(URI+'/api/users/'+id+'/categories/notes',
     {
       headers: {
@@ -172,29 +170,69 @@ class MainApp extends React.Component {
 
   _deleteNote(_id) {
     let { selectedCategory } = this.state;
-    selectedCategory.notes = selectedCategory.notes.filter(c => c._id !== _id);
-    this.setState({
-      selectedCategory
-    })
+    axios.delete(URI+'/api/users/'+
+                  localStorage.getItem('userId')+
+                  '/categories/'+ selectedCategory._id+
+                  '/notes/'+_id,{
+                    headers:{
+                      "Authorization": 'Bearer '+localStorage.getItem('token')
+                    }
+                  })
+      .then(response => {
+        selectedCategory.notes = selectedCategory.notes.filter(c => c._id !== _id);
+        this.setState({
+          selectedCategory
+        })
+      }).catch(error => {
+        if(error.response) {
+          alert(error.response.data.message)
+        }
+        else alert(error.message)
+      });
   }
 
-  _editCategory(newCatName) {
+  _editCategory(name) {
     let newCat = this.state.selectedCategory;
-    newCat.name = newCatName;
-
-    this.setState({
-      selectedCategory: newCat
-    });   
+    axios.put(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${newCat._id}`,
+    { name },{
+      headers: {
+        "Authorization": 'Bearer '+localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+        newCat.name = name;
+        this.setState({
+          selectedCategory: newCat
+        });   
+      
+    }).catch(error => {
+      if(error.response) {
+        alert(error.response.data.message)
+      }
+      else alert(error.message)
+    });
   }
 
   _deleteCategory(_id) {
-    let { info } = this.state;
-    info.categories = info.categories.filter(cat => cat._id !== _id);
-
-    this.setState({
-      info,
-      selectedCategory: info.categories[0],
-    });
+    axios.delete(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${_id}`,
+    {
+      headers: {
+        Authorization: 'Bearer '+localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        let { info } = this.state;
+        info.categories = info.categories.filter(cat => cat._id !== _id);
+        this.setState({
+          info,
+          selectedCategory: info.categories[0] || {},
+        });
+      }).catch(error => {
+        if(error.response) {
+          alert(error.response.data.message)
+        }
+        else alert(error.message)
+      });
   }
   
   _handleCloseModal() {
