@@ -37,9 +37,13 @@ app.use(eHandler());
 app.use(sendAsJSON());
 
 // Redirects everything else to index
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve('./client/build/index.html'));
 });
+
+app.get('/*', (req,res) => {
+  res.redirect('/')
+})
 
 app.listen(PORT, _ => {
   console.log('Server up and running on port ' + PORT)
