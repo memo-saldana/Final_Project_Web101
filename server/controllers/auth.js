@@ -4,6 +4,7 @@ const User = require('../db/models/user'),
 
 ctr.signup = () => async (req,res,next) => {
   const { email, confirmPassword, password } = req.body;
+  console.log('body :', body);
   console.log('email :', email);
   console.log('confirmPassword :', confirmPassword);
   console.log('password :', password);
