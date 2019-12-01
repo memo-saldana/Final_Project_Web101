@@ -111,10 +111,9 @@ class MainApp extends React.Component {
   }
 
   _addNotes(title, text) {
-    console.log('text :', text);
     let { selectedCategory } = this.state
     const exists = selectedCategory.notes.some(note => note.title === title);
-    
+    if(title === "") return alert("Title is blank")
     if(!exists) {
       axios.post(URI+'/api/users/'+localStorage.getItem('userId')+'/categories/'+selectedCategory._id+'/notes',
       { title, text},
@@ -145,6 +144,7 @@ class MainApp extends React.Component {
   _editNotes(_id, editedContent) {
     let { selectedCategory } = this.state;
     let index = selectedCategory.notes.findIndex(c => c._id === _id);
+    if(editedContent.title === "") return alert("Title is blank")
     axios.put(URI+'/api/users/'+
               localStorage.getItem('userId')+
               '/categories/'+selectedCategory._id+
@@ -193,6 +193,7 @@ class MainApp extends React.Component {
 
   _editCategory(name) {
     let newCat = this.state.selectedCategory;
+    if(name === "") return alert("Category name cannot be blank")
     axios.put(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${newCat._id}`,
     { name },{
       headers: {

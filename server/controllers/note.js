@@ -20,7 +20,6 @@ ctr.create = () => async (req,res,next) => {
   const { categoryId } = req.params;
   const { title, text } = req.body;
   if(!title || title == "") return Promise.reject(new MyError(400, "Note title not received"));
-  if(!text || text == "") return Promise.reject(new MyError(400, "Note text not received"));
 
   let note = new Note({title, text, category: categoryId})
   await note.save();

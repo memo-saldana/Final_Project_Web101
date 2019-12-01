@@ -5,7 +5,8 @@ let noteSchema = new mongoose.Schema({
     type: String
   },
   text: {
-    type: String
+    type: String,
+    default: ""
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
