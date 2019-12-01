@@ -66,8 +66,8 @@ class RightPanel extends React.Component   {
   }
 
   _editCatTitle() {
-    const {categoryName} = this.state;
-    this.props.editCatHandler(categoryName);
+    const {categoryName, oldCatName} = this.state;
+    this.props.editCatHandler(categoryName, oldCatName);
   }
 
   _deleteCategory() {

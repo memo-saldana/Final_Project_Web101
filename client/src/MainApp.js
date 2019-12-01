@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import React from 'react';
 import TextEditor from './TextEditor';
 import axios from 'axios';
+import Button from './Button';
 
 Modal.setAppElement('#root');
 
@@ -19,9 +20,11 @@ class MainApp extends React.Component {
       isFormShown: false,
       selectedCategory: {},
       showModal: false,
-      error: ""
+      error: "",
+      showError: false
     };
 
+    this._closeError = this._closeError.bind(this);
     this._addCategory = this._addCategory.bind(this);
     this._addNotes = this._addNotes.bind(this);
     this._changeSelectedCategory = this._changeSelectedCategory.bind(this);
@@ -32,6 +35,10 @@ class MainApp extends React.Component {
     this._handleCloseModal = this._handleCloseModal.bind(this);
     this._handleOpenModal = this._handleOpenModal.bind(this);
     this._showAddCategoryForm = this._showAddCategoryForm.bind(this);
+  }
+
+  _closeError(){
+    this.setState({showError: false})
   }
 
   componentDidMount() {
@@ -191,9 +198,13 @@ class MainApp extends React.Component {
       });
   }
 
-  _editCategory(name) {
+  _editCategory(name, oldName) {
     let newCat = this.state.selectedCategory;
-    if(name === "") return alert("Category name cannot be blank")
+    console.log('newCat :', newCat);
+    if(name === "") {
+      let cat = {...newCat};
+      return this.setState({ selectedCategory: cat, showError: true, error:"Category name cannot be blank"})
+    } 
     axios.put(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${newCat._id}`,
     { name },{
       headers: {
@@ -273,6 +284,21 @@ class MainApp extends React.Component {
               selectedCategory={this.state.selectedCategory}
               showModalHandler={this._handleOpenModal}
             />
+            <Modal
+              ariaHideApp={true}
+              isOpen={this.state.showError}
+              className="Modal"
+              overlayClassName="Overlay"
+            >
+              <div className="container">
+                <p className="error">{this.state.error}</p>
+                <Button
+                  className="saveCancel"
+                  handler={this._closeError}
+                  name="Ok"
+                />
+              </div>
+            </Modal>
             <Modal 
               ariaHideApp={true}
               isOpen={this.state.showModal}
