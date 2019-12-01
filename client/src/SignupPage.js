@@ -17,6 +17,12 @@ class SignupPage extends React.Component {
     this._signUp = this._signUp.bind(this);
   }
 
+  componentDidMount = () => {
+    if(localStorage.getItem('token')) {
+      this.props.history.push('/')
+    }
+  }
+
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,

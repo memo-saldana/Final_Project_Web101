@@ -19,6 +19,12 @@ class LoginPage extends React.Component {
     this._login = this._login.bind(this);
   }
 
+  componentDidMount = () => {
+    if(localStorage.getItem('token')) {
+      this.props.history.push('/')
+    }
+  }
+
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,

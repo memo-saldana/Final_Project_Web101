@@ -12,7 +12,7 @@ const URI = 'https://webdevclass-finalproject.herokuapp.com';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { isLoggedin: false };
+    this.state = { };
     this._login = this._login.bind(this);
     this._logout = this._logout.bind(this);
   }
@@ -67,7 +67,7 @@ class App extends React.Component {
             />
             <PrivateRoute
               component={MainApp}
-              isAuth={this.state.isLoggedin}
+              isAuth={localStorage.getItem('token')}
               path="/"
               logoutHandler={this._logout}
             />
