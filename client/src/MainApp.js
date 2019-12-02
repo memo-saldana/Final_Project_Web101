@@ -191,56 +191,65 @@ class MainApp extends React.Component {
   }
 
   _editCategory(name) {
-    let newCat = this.state.selectedCategory;
-    if(name === "") return alert("Category name cannot be blank")
-    axios.put(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${newCat._id}`,
-    { name },{
-      headers: {
-        "Authorization": 'Bearer '+localStorage.getItem('token')
-      }
-    })
-    .then(response => {
-        let {info} = this.state;
-        let index = info.categories.findIndex(c => c._id === response.data.category._id)
-        info.categories[index] = response.data.category;
-        let newCategoryArray = [...info.categories]
-        info = {
-          categories: newCategoryArray
-        }
-        newCat.name = response.data.category.name;
-        this.setState({
-          info,
-          selectedCategory: newCat
-        });   
-      
-    }).catch(error => {
-      if(error.response) {
-        alert(error.response.data.message)
-      }
-      else alert(error.message)
-    });
-  }
-
-  _deleteCategory(_id) {
-    axios.delete(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${_id}`,
-    {
-      headers: {
-        Authorization: 'Bearer '+localStorage.getItem('token')
+    return new Promise((resolve, reject) => {
+      let newCat = this.state.selectedCategory;
+      if(name === "") return reject(alert("Category name cannot be blank"))
+      axios.put(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${newCat._id}`,
+      { name },{
+        headers: {
+          "Authorization": 'Bearer '+localStorage.getItem('token')
         }
       })
       .then(response => {
-        let { info } = this.state;
-        info.categories = info.categories.filter(cat => cat._id !== _id);
-        this.setState({
-          info,
-          selectedCategory: info.categories[0] || {},
-        });
+          let {info} = this.state;
+          let index = info.categories.findIndex(c => c._id === response.data.category._id)
+          info.categories[index] = response.data.category;
+          let newCategoryArray = [...info.categories]
+          info = {
+            categories: newCategoryArray
+          }
+          newCat.name = response.data.category.name;
+          this.setState({
+            info,
+            selectedCategory: newCat
+          });   
+          return resolve()
       }).catch(error => {
         if(error.response) {
           alert(error.response.data.message)
         }
         else alert(error.message)
+        return reject()
       });
+    });
+  }
+
+  _deleteCategory(_id) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${_id}`,
+      {
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem('token')
+          }
+        })
+        .then(response => {
+          let { info } = this.state;
+          info.categories = info.categories.filter(cat => cat._id !== _id);
+          let sel = info.categories.length>0? info.categories[0] : {};
+          console.log('sel :', sel);
+          this.setState({
+            info,
+            selectedCategory: sel,
+          });
+          return resolve()
+        }).catch(error => {
+          if(error.response) {
+            alert(error.response.data.message)
+          }
+          else alert(error.message)
+          return reject()
+        });
+    });
   }
   
   _handleCloseModal() {

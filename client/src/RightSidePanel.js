@@ -64,13 +64,25 @@ class RightPanel extends React.Component   {
     })
   }
 
-  _editCatTitle() {
+  _editCatTitle(e) {
     const {categoryName} = this.state;
-    this.props.editCatHandler(categoryName);
+
+    this.props.editCatHandler(categoryName)
+    .catch(e => {
+      console.log('this.props.title :', this.props.title);
+      this.setState({ categoryName: this.props.title})
+    })
   }
 
-  _deleteCategory() {
-    this.props.deleteCatHandler(this.props._id);
+  _deleteCategory(e) {
+    this.props.deleteCatHandler(this.props._id)
+    .then(a => {
+      // this.setState({categoryName: this})
+    })
+    .catch(e => {
+      this.setState({categoryName: this.props.title})
+    })
+
   }
 
   _deleteNote(_id) {
@@ -103,7 +115,7 @@ class RightPanel extends React.Component   {
             onChange={this._handleChange}
             placeholder="Category Title"
             type="text"
-            value={this.state.categoryName}
+            value={this.state.categoryName || ""}
             disabled={disabled}
           />
           <div style={{display:"flex", flexDirection:"row", width: "67%", justifyContent: "flex-end"}}>
