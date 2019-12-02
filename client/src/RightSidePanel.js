@@ -70,7 +70,6 @@ class RightPanel extends React.Component   {
   }
 
   _deleteCategory() {
-    console.log('this.props._id :', this.props._id);
     this.props.deleteCatHandler(this.props._id);
   }
 
