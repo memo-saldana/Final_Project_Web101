@@ -44,7 +44,6 @@ class MainApp extends React.Component {
       }
     })
     .then(response => {
-      console.log('response.data :', response.data);
       this.setState({
         info: response.data,
         selectedCategory: response.data.categories[0] || {},
@@ -60,11 +59,10 @@ class MainApp extends React.Component {
   }
 
   _changeSelectedCategory(e) {
-    const categoryName = e.target.getAttribute('name');
+    const categoryId = e.target.getAttribute('value');
 
     let { categories } = this.state.info;
-    categories = categories.filter(obj => obj.name === categoryName)[0];
-
+    categories = categories.filter(obj => obj._id === categoryId)[0];
     this.setState({
       selectedCategory: categories
     });
@@ -201,8 +199,16 @@ class MainApp extends React.Component {
       }
     })
     .then(response => {
-        newCat.name = name;
+        let {info} = this.state;
+        let index = info.categories.findIndex(c => c._id === response.data.category._id)
+        info.categories[index] = response.data.category;
+        let newCategoryArray = [...info.categories]
+        info = {
+          categories: newCategoryArray
+        }
+        newCat.name = response.data.category.name;
         this.setState({
+          info,
           selectedCategory: newCat
         });   
       

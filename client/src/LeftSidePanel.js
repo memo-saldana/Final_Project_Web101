@@ -12,9 +12,10 @@ const LeftPanel = (props) => (
       <Button
         className="categoryButton"
         handler={props.selectCatHandler}
-        key={category.name}
+        key={category._id}
         name={category.name}
-        id={category.name === props.selectedCategory ? "selectedCategory" : ""}
+        id={category._id === props.selectedCategory ? "selectedCategory" : ""}
+        _id={category._id}
       />
     ))}
     <AddCategoryForm show={props.isFormShown} addCategoryHandler={props.addCategoryHandler}/>

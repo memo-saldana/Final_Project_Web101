@@ -37,9 +37,7 @@ class SignupPage extends React.Component {
   async _signUp() {
     // console.log("Do login stuff here");
     let {email, password, passwordConfirmation} = this.state;
-    console.log('email, password, passwordConfirmation :', email, password, passwordConfirmation);
     let error = await this.props.signUpHandler(email, password, passwordConfirmation)
-    console.log('error :', error);
     if(error) {
       this.setState({error})
     } else {

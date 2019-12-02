@@ -29,7 +29,6 @@ class RightPanel extends React.Component   {
   _handleSave(title, text) {
     const { _id } = this.state;
     const selectedContent = {title, text};
-    console.log('_id :', _id);
     this.props.editNoteHandler(_id, selectedContent);
 
     this.setState({

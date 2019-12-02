@@ -10,7 +10,7 @@ const MainPage = (props) => (
       hideForm={props.hideForm}
       isFormShown={props.isFormShown}
       logoutHandler={props.logoutHandler}
-      selectedCategory={props.selectedCategory.name}
+      selectedCategory={props.selectedCategory._id}
       selectCatHandler={props.selectCatHandler}
     />
     <RightPanel

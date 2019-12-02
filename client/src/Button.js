@@ -6,6 +6,7 @@ const Button = (props) => (
     id={props.id}
     name={props.name}
     onClick={props.handler}
+    value={props._id}
   >
     {props.name}
   </span>
