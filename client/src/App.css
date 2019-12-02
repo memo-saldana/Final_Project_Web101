@@ -52,7 +52,7 @@ div:focus {
 .logout {
   color: #3f3f3f;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: calc(1vw);
   text-decoration: underline;
 }
 
@@ -68,7 +68,7 @@ div:focus {
 .categoryButton {
   background-color: #000000;
   color: #ffffff;
-  font-size: 1.22rem;
+  font-size: calc(1vw);
   font-weight: bold;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -281,7 +281,7 @@ div:focus {
 .saveCancel {
   background-color: #3f3f3f;
   color: #ffffff;
-  font-size: 1.22rem;
+  font-size: calc(1vw);
   font-weight: bold;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -333,7 +333,7 @@ div:focus {
 
 .editDelete {
   color: #ffffff;
-  font-size: 1.22rem;
+  font-size: calc(1vw);
   font-weight: bold;
   padding-top: 10px;
   padding-bottom: 10px;
