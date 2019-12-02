@@ -222,8 +222,6 @@ class MainApp extends React.Component {
   }
 
   _deleteCategory(_id) {
-    console.log('_id :', _id);
-    alert(JSON.stringify(_id))
     axios.delete(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${_id}`,
     {
       headers: {
