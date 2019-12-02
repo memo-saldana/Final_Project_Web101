@@ -70,6 +70,7 @@ class RightPanel extends React.Component   {
   }
 
   _deleteCategory() {
+    console.log('this.props._id :', this.props._id);
     this.props.deleteCatHandler(this.props._id);
   }
 
@@ -90,7 +91,6 @@ class RightPanel extends React.Component   {
   }
 
   render() {
-    let delHandler = this._deleteNote;
     let noteHandler = this.state.categoryName === "" ? null : this.props.showModalHandler;
     let disabled = this.state.categoryName === ""
                 && this.state.oldCatName === "";
@@ -116,7 +116,7 @@ class RightPanel extends React.Component   {
             />
             <Button 
               className="editDelete"
-              handler={delHandler}
+              handler={this._deleteCategory}
               id="delete"
               name="Delete"
             />

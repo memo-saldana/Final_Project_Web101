@@ -45,7 +45,8 @@ ctr.create = () => async (req,res,next) => {
   let category = new Category({name, owner: userId})
 
   await category.save();
-
+  category = category.toJSON();
+  category.notes = [];
   return res.status(201).json({category});
 }
 

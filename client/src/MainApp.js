@@ -91,6 +91,7 @@ class MainApp extends React.Component {
       })
       .then(response => {
         let {category} = response.data;
+        if(!category.notes) category.notes = []
         const categorySet = [...this.state.info.categories, category];
         const  { info } = this.state;
         info.categories = categorySet;
@@ -110,7 +111,7 @@ class MainApp extends React.Component {
 
   _addNotes(title, text) {
     let { selectedCategory } = this.state
-    const exists = selectedCategory.notes.some(note => note.title === title);
+    const exists = selectedCategory.notes && selectedCategory.notes.some(note => note.title === title);
     if(title === "") return alert("Title is blank")
     if(!exists) {
       axios.post(URI+'/api/users/'+localStorage.getItem('userId')+'/categories/'+selectedCategory._id+'/notes',
@@ -221,6 +222,8 @@ class MainApp extends React.Component {
   }
 
   _deleteCategory(_id) {
+    console.log('_id :', _id);
+    alert(JSON.stringify(_id))
     axios.delete(`${URI}/api/users/${localStorage.getItem('userId')}/categories/${_id}`,
     {
       headers: {
